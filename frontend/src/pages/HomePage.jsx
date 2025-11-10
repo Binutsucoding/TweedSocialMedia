@@ -45,7 +45,7 @@ const HomePage = () => {
 
   return (
     <Flex gap="10" alignItems={"flex-start"}>
-      <Box flex={70}>
+      <Box flex={70} width="100%" overflow="hidden" >
         {!loading && posts?.length === 0 && (
           <h1>Follow some users to see the feed</h1>
         )}
@@ -57,7 +57,7 @@ const HomePage = () => {
         )}
 
         {posts?.map((post, index) => (
-          <Box key={post._id} width="100%">
+          <Box key={post._id} width="100%" overflow="hidden">
             <Post post={post} postedBy={post.postedBy} />
             {index === suggestedUserInsertIndex && <SuggestedUserMobileView />}
           </Box>
@@ -69,6 +69,8 @@ const HomePage = () => {
           base: "none",
           md: "block",
         }}
+        width="100%"
+        overflow="hidden"
       >
         <SuggestedUsers />
       </Box>
