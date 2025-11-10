@@ -5,11 +5,14 @@ import Post from "../components/Post";
 import { useRecoilState } from "recoil";
 import postsAtom from "../atoms/postsAtom";
 import SuggestedUsers from "../components/SuggestedUsers";
+import SuggestedUserMobileView from "../components/SuggestedUserMobileView";
 
 const HomePage = () => {
   const [posts, setPosts] = useRecoilState(postsAtom);
   const [loading, setLoading] = useState(true);
+  const [suggestedUserInsertIndex, setSuggestedUserInsertIndex] = useState(-1);
   const showToast = useShowToast();
+
   useEffect(() => {
     const getFeedPosts = async () => {
       setLoading(true);
@@ -23,6 +26,14 @@ const HomePage = () => {
         }
         console.log(data);
         setPosts(data);
+
+        // Randomly determine where to insert suggested users after posts are loaded
+        if (data.length > 0) {
+          const minIndex = Math.min(1, data.length - 1);
+          const maxIndex = Math.min(3, data.length - 1);
+          const randomIndex = Math.floor(Math.random() * (maxIndex - minIndex + 1)) + minIndex;
+          setSuggestedUserInsertIndex(randomIndex);
+        }
       } catch (error) {
         showToast("Error", error.message, "error");
       } finally {
@@ -35,7 +46,7 @@ const HomePage = () => {
   return (
     <Flex gap="10" alignItems={"flex-start"}>
       <Box flex={70}>
-        {!loading && posts.length === 0 && (
+        {!loading && posts?.length === 0 && (
           <h1>Follow some users to see the feed</h1>
         )}
 
@@ -45,8 +56,11 @@ const HomePage = () => {
           </Flex>
         )}
 
-        {posts.map((post) => (
-          <Post key={post._id} post={post} postedBy={post.postedBy} />
+        {posts?.map((post, index) => (
+          <Box key={post._id}>
+            <Post post={post} postedBy={post.postedBy} />
+            {index === suggestedUserInsertIndex && <SuggestedUserMobileView />}
+          </Box>
         ))}
       </Box>
       <Box
