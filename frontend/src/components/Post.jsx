@@ -59,8 +59,21 @@ const Post = ({ post, postedBy }) => {
 
 	if (!user) return null;
 	return (
-		<Link to={`/${user.username}/post/${post._id}`}>
-			<Flex gap={3} mb={4} py={5}>
+		<Link
+			to={`/${user.username}/post/${post._id}`}
+			style={{
+				textDecoration: "none",
+				color: "inherit",
+				userSelect: "none", // ✅ Prevents text highlight
+				WebkitTapHighlightColor: "transparent", // ✅ Removes blue flash on mobile
+			}}
+			onClick={(e) => {
+				// prevent weird link activation when clicking on buttons/icons
+				if (e.target.closest("button, svg, path, input, textarea")) {
+					e.preventDefault();
+				}
+			}}
+		>			<Flex gap={3} mb={4} py={5}>
 				<Flex flexDirection={"column"} alignItems={"center"}>
 					<Avatar
 						size='md'
