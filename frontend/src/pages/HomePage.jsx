@@ -57,7 +57,7 @@ const HomePage = () => {
         )}
 
         {posts?.map((post, index) => (
-          <Box key={post._id}>
+          <Box key={post._id} width="100%">
             <Post post={post} postedBy={post.postedBy} />
             {index === suggestedUserInsertIndex && <SuggestedUserMobileView />}
           </Box>

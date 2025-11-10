@@ -43,16 +43,15 @@ const SuggestedUserMobileView = () => {
     return (
         <Box
             mb={4}
-            display={{
-                base: "block",
-                md: "none",
-            }}
+            display={{ base: "block", md: "none" }}
+            width="100%"
+            overflow="hidden"
         >
             <Flex justifyContent="space-between" alignItems="center" mb={3} px={2}>
                 <Text fontSize="md" fontWeight="bold">
                     Suggested for you
                 </Text>
-                <Button
+                {/* <Button
                     variant="ghost"
                     size="sm"
                     colorScheme="blue"
@@ -60,19 +59,22 @@ const SuggestedUserMobileView = () => {
                     fontWeight="normal"
                 >
                     See All
-                </Button>
+                </Button> */}
             </Flex>
             <Flex
                 gap={3}
                 overflowX="auto"
+                overflowY="hidden"
                 pb={2}
                 px={2}
+                width="100%"
                 css={{
                     "&::-webkit-scrollbar": {
                         display: "none",
                     },
                     scrollbarWidth: "none",
                     msOverflowStyle: "none",
+                    WebkitOverflowScrolling: "touch",
                 }}
             >
                 {suggestedUsers.map((user) => (
@@ -95,6 +97,7 @@ const SuggestedUserCard = ({ user, onDismiss }) => {
         <Box
             minW="140px"
             w="140px"
+            flexShrink={0}
             bg={colorMode === "dark" ? "gray.800" : "white"}
             border="1px solid"
             borderColor="gray.200"
@@ -117,7 +120,7 @@ const SuggestedUserCard = ({ user, onDismiss }) => {
             // borderRadius="sm"
             // _hover={{ bg: "red.600" }}
             // aria-label="Dismiss suggestion"
-            />3
+            />
             <Avatar
                 src={user.profilePic}
                 size="lg"
