@@ -47,7 +47,10 @@ const HomePage = () => {
     <Flex gap="10" alignItems={"flex-start"}>
       <Box flex={70} width="100%" overflow="hidden" >
         {!loading && posts?.length === 0 && (
-          <h1>Follow some users to see the feed</h1>
+          <div className="flex flex-col items-center justify-center h-full">
+            <h1>Follow some users to see the feed</h1>
+            <SuggestedUserMobileView />
+          </div>
         )}
 
         {loading && (
